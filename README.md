@@ -17,3 +17,10 @@
   - max 4 applicants
   - add or remove
   - set max number of applicants
+
+## Screens
+- Welcome
+- Student login
+- Admin login
+- Student view
+- Admin view
