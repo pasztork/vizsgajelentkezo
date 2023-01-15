@@ -1,0 +1,60 @@
+Vizsgajelentkező
+- index.html                        - üdvözlés
+- student.html                      - jelentkezés vizsgára
+- adminlogin.html                   - login form
+-admin.html                         - vizsgaalkalom (new, edit, delete)
+                                    - hallgató (delete)
+
+
+Routing
+
+middleware/
+    renderMW.js
+
+middleware/auth/
+    checkPasswordMW.js
+    authMW.js
+
+middleware/exam/
+    createExamMW.js
+    getExamMW.js
+    editExamMW.js
+    deleteExamMW.js
+
+middleware/student/
+    createRegistrationMW.js
+    getStudentRegistrationsMW.js
+    deleteStudentMW.js
+
+GET /                               - index.html
+
+GET /student                        - student.html
+POST /student                       - új jelentkezés
+    createRegistrationMW
+
+GET /adminlogin                     - adminlogin.html
+POST /adminlogin/login              - jelszó ellenőrzés, ha ok, admin-ra redirect
+    checkPasswordMW
+
+GET /admin                          - admin.html
+    authMW
+GET /admin/exam                     - vizsgaalkalomhoz tartozó emailek listázása
+    authMW
+    getExamMW
+    renderMW(admin.html)
+POST /admin/exam                    - új vizsgaalkalom
+    authMW
+    createExamMW
+DELETE /admin/exam/:examid          - vizsgaalkalom törlése
+    authMW
+    deleteExamMW
+PUT /admin/exam/:examid             - vizsgaalkalom szerkesztése
+    authMW
+    editExamMW
+    
+GET /admin/student/:studentid       - hallgató lekérése
+    authMW
+    getStudentRegistrationsMW
+DELETE /admin/student/:studentid    - hallgató törlése
+    authMW
+    deleteStudentMW
