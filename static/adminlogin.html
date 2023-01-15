@@ -8,7 +8,7 @@
 </head>
 <body class="bg-secondary text-light">
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand px-2" href="index.html"><i class="fa-solid fa-house"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -18,37 +18,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="student.html">Hallgatói felület</a>
+                    <a class="nav-link" href="student.html">Hallgatói felület</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="adminlogin.html">Admin felület</a>
+                    <a class="nav-link active" href="#">Admin felület</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<section class="d-flex flex-column align-items-center pt-5">
+<div class="d-flex flex-column align-items-center pt-5">
     <div id="signup-div" class="d-flex align-items-center card" style="width: 25rem;">
         <form class="my-4" style="width: 20rem;" method="POST">
-            <label for="email" class="text-dark">Email:</label>
-            <input type="email" id="email" class="form-control mb-3 col-9">
-            <label for="date" class="text-dark">Dátum:</label>
-            <select class="form-select mb-4 col-12" id="date">
-                <option>2023. január 11.</option>
-                <option>2023. január 13.</option>
-            </select>
-            <input type="submit" id="signup-btn" class="btn btn-success col-12" value="Jelentkezés">
+            <input type="text" class="form-control mb-3 col-9" value="Admin" disabled>
+            <label for="password" class="text-dark">Jelszó:</label>
+            <input id="password" type="password" class="form-control">
+            <a id="signup-btn" href="admin.html" class="btn btn-success col-12 mt-3">Bejelentkezés</a>
         </form>
     </div>
-    <div id="response-div" class="d-flex align-items-center card text-center"
-         style="width: 25rem;">
-        <div class="card-body my-4" style="width: 20rem;">
-                <h5 class="card-title text-dark">Siker!</h5>
-            <p class="card-text text-dark">Sikeresen jelentkeztél!</p>
-        </div>
-    </div>
-</section>
+</div>
 
 <footer class="text-center d-flex flex-wrap align-items-center p-1 footer-dark bg-dark fixed-bottom">
     <div class="col-12">
@@ -56,7 +45,8 @@
     </div>
     <div class="col-12">
         <a class="btn btn-dark" href="mailto:kpasztor@edu.bme.hu"><i class="fa-solid fa-envelope"></i></a>
-        <a class="btn btn-dark" href="https://www.facebook.com/pkristi123/"><i class="fa-brands fa-facebook"></i></a>
+        <a class="btn btn-dark" href="https://www.facebook.com/pkristi123/"><i
+                class="fa-brands fa-facebook"></i></a>
         <a class="btn btn-dark" href="https://teams.microsoft.com/l/chat/0/0?users=kpasztor@edu.bme.com"><i
                 class="fa-brands fa-microsoft"></i></a>
     </div>
@@ -67,6 +57,6 @@
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/ebae5f25e8.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="student.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>
