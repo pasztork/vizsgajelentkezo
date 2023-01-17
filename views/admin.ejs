@@ -1,19 +1,18 @@
-<%- include("header", { location : "admin"}) -%>
+<%- include("header", { location : "admin"}) %>
 
 <div class="d-flex flex-column align-items-center">
     <div class="d-flex flex-wrap pt-5 col-12">
         <div class="d-flex flex-column align-items-center col-12">
             <div class="d-flex-wrap col-lg-6 col-12">
                 <div class="col-12 d-flex justify-content-center align-items-center">
-                    <form class="col-8" method="POST">
-                        <label for="date" class="h4 me-3">Dátum:</label>
+                    <form class="col-8" method="get">
+                        <label for="date" class="h4">Dátum:</label>
                         <input type="date" id="date" name="date" class="form-control">
+                        <div class="col-12 d-flex justify-content-center pt-3">
+                            <input type="submit" formaction="/admin/exam" class="btn btn-success col-6 me-3" value="E-mailek listázása">
+                            <input type="submit" formaction="/admin/exam/new" class="btn btn-success col-6" value="Dátum felvétele">
+                        </div>
                     </form>
-                </div>
-                <div class="col-12 d-flex justify-content-center pt-3">
-                    <input id="list-emails-btn" type="button" class="btn btn-success col-4 me-3"
-                           value="E-mailek listázása">
-                    <input id="add-date-btn" type="button" class="btn btn-success col-4" value="Dátum felvétele">
                 </div>
             </div>
 
@@ -22,7 +21,7 @@
 
                 <% emails.forEach(function (email) { %>
                     <div class="col-8 d-flex justify-content-around align-items-center pt-3">
-                        <input type="email" class="col-8 text-center me-2" value="<% email %> " disabled>
+                        <input type="email" class="col-8 text-center me-2" value="<%= email %>" disabled>
                         <i class="col-2 btn btn-danger fa-solid fa-trash me-2"></i>
                         <i class="col-2 btn btn-success fa-solid fa-envelope"></i>
                     </div>
@@ -32,45 +31,49 @@
                     <label for="max-student-count-update" class="me-3 h6">Max. létszám:</label>
                     <input id="max-student-count-update" type="number" min="1" max="4" value="3" class="form-control">
                 </div>
-                <form class="col-12 pt-3 d-flex justify-content-center">
-                    <input id="save-exam-button" type="button" value="Mentés" class="btn btn-success col-4 me-3">
-                    <input id="delete-exam-button" type="button" value="Alkalom törlése" class="btn btn-danger col-4">
+                <form method="post" class="col-12 pt-3 d-flex justify-content-center">
+                    <input formaction="/admin/exam/edit/1" type="submit" value="Mentés" class="btn btn-success col-4 me-3">
+                    <input formaction="/admin/exam/del/1" type="submit" value="Alkalom törlése" class="btn btn-danger col-4">
                 </form>
             </div>
             <% } %>
 
+            <% if (typeof date !== "undefined") { %>
             <div id="add-exam-div" class="d-flex flex-column align-items-center col-lg-6 col-12">
                 <div class="d-flex align-items-center col-8 pt-3">
                     <label for="new-date" class="me-3 h6">Dátum:</label>
-                    <input id="new-date" type="date" class="form-control" disabled>
+                    <input id="new-date" type="date" class="form-control" value="<%= date %>" disabled>
                 </div>
                 <div class="d-flex justify-content-center align-items-center col-8 pt-3">
                     <label for="max-student-count" class="me-3 h6">Max. létszám:</label>
                     <input id="max-student-count" type="number" min="1" max="4" value="4" class="form-control">
                 </div>
-                <input id="create-exam-button" type="button" value="Létrehozás" class="btn btn-success mt-3 col-8">
+                <form method="post" action="/admin/exam/new" class="d-flex mt-3 col-8">
+                    <input type="submit" value="Létrehozás" class="btn btn-success col-12">
+                </form>
             </div>
+            <% } %>
         </div>
 
         <div class="d-flex flex-column align-items-center col-12 pt-5">
             <div class="d-flex-wrap col-lg-6 col-12">
                 <div class="col-12 d-flex justify-content-center align-items-center">
-                    <form class="col-8">
-                        <label for="email" class="h4 me-3">Email:</label>
+                    <form class="col-8" method="get" action="/admin/student/1">
+                        <label for="email" class="h4">Email:</label>
                         <input type="email" id="email" class="form-control">
+                        <div class="col-12 d-flex justify-content-center pt-3">
+                            <input type="submit" class="btn btn-success col-12" value="Hallgató megjelenítése">
+                        </div>
                     </form>
                 </div>
-                <div class="col-12 d-flex justify-content-around">
-                    <input id="list-student-btn" type="button" class="btn btn-success col-8 my-3"
-                           value="Hallgató megjelenítése">
-                </div>
             </div>
+            
             <% if (typeof student !=="undefined" ) { %>
             <div id="student" class="col-lg-6 col-12 d-flex-wrap pt-3">
 
                 <div class="col-12 d-flex justify-content-center align-items-center">
                     <div class="col-8 d-flex justify-content-center">
-                        <input type="email" class="col-8 text-center me-2" value="<%= student.name %>" disabled>
+                        <input type="email" class="col-8 text-center me-2" value=<%= student.email %> disabled>
                         <i id="delete-student-btn" class="col-2 btn btn-danger fa-solid fa-trash me-2"></i>
                         <i id="email-student-btn" class="col-2 btn btn-success fa-solid fa-envelope"></i>
                     </div>

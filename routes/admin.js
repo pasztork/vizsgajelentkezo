@@ -1,22 +1,15 @@
 const authMW = require("../middleware/auth/authMW");
 const renderMW = require("../middleware/renderMW");
-
 const getExamMW = require("../middleware/exam/getExamMW");
 const createExamMW = require("../middleware/exam/createExamMW");
 const deleteExamMW = require("../middleware/exam/deleteExamMW");
 const editExamMW = require("../middleware/exam/editExamMW");
 const getStudentRegistrationsMW = require("../middleware/student/getStudentRegistrationsMW");
 const deleteStudentMW = require("../middleware/student/deleteStudentMW");
+const fillDateMW = require("../middleware/exam/fillDateMW");
 
 module.exports = function (app) {
-  let objectRepository = {};
-
-  /* lehetőségek mutatása */
-  app.get(
-    "/adminlogin",
-    authMW(objectRepository),
-    renderMW(objectRepository, "adminlogin")
-  );
+  const objectRepository = {};
 
   /* lehetőségek mutatása */
   app.get(
@@ -25,36 +18,44 @@ module.exports = function (app) {
     renderMW(objectRepository, "admin")
   );
 
-  /* egy vizsgaalkalom letöltése */
+  /* egy vizsgaalkalomhoz tartozó emailek listázása */
   app.get(
     "/admin/exam",
     authMW(objectRepository),
     getExamMW(objectRepository),
-    renderMW(objectRepository, "")
+    renderMW(objectRepository, "admin")
+  );
+
+  /* egy új vizsgalkalom létrehozásához szükséges UI kitöltése */
+  app.get(
+    "/admin/exam/new",
+    authMW(objectRepository),
+    fillDateMW(objectRepository),
+    renderMW(objectRepository, "admin")
   );
 
   /* vizsgaalkalom létrehozása */
   app.post(
-    "admin/exam",
+    "/admin/exam/new",
     authMW(objectRepository),
-    createExamMW(objectRepository)
+    createExamMW(objectRepository),
+    renderMW(objectRepository, "admin")
   );
 
   /* töröl egy vizsgaalkalmat */
-  app.delete(
-    "admin/exam/:examid",
+  app.post(
+    "/admin/exam/del/:examid",
     authMW(objectRepository),
-    getExamMW(objectRepository),
-    deleteExamMW(objectRepository)
+    deleteExamMW(objectRepository),
+    renderMW(objectRepository, "admin")
   );
 
   /* szerkeszt egy vizsgaalkalmat */
-  app.put(
-    "admin/exam/:examid",
+  app.post(
+    "/admin/exam/edit/:examid",
     authMW(objectRepository),
-    getExamMW(objectRepository),
     editExamMW(objectRepository),
-    renderMW(objectRepository)
+    renderMW(objectRepository, "admin")
   );
 
   /* hallgató jelentekéseinek lekérése az adatbázisból */
@@ -62,14 +63,14 @@ module.exports = function (app) {
     "/admin/student/:studentid",
     authMW(objectRepository),
     getStudentRegistrationsMW(objectRepository),
-    renderMW(objectRepository)
+    renderMW(objectRepository, "admin")
   );
 
   /* hallgató törlése az adatbázisból */
-  app.delete(
-    "/admin/student/:studentid",
+  app.post(
+    "/admin/student/del/:studentid",
     authMW(objectRepository),
     deleteStudentMW(objectRepository),
-    renderMW(objectRepository)
+    renderMW(objectRepository, "admin")
   );
 };
