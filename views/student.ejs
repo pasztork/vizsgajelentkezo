@@ -1,0 +1,28 @@
+<%- include("header", { location : "student" }) %>
+
+<section class="d-flex flex-column align-items-center pt-5">
+    <div id="signup-div" class="d-flex align-items-center card <%= registered === true ? "d-none" : "" %>" style="width: 25rem;">
+        <form class="my-4" style="width: 20rem;" method="POST">
+            <label for="email" class="text-dark">Email:</label>
+            <input type="email" id="email" name="email" class="form-control mb-3 col-9">
+            <label for="date" class="text-dark">Dátum:</label>
+            <select class="form-select mb-4 col-12" id="date" name="date">
+                <% if (typeof availableDates !== "undefined") { %> 
+                    <% availableDates.forEach(function (date) { %>
+                        <option><%= date %></option>
+                    <% }); %>
+                <% } %>
+            </select>
+            <input type="submit" id="signup-btn" class="btn btn-success col-12" value="Jelentkezés">
+        </form>
+    </div>
+    <div id="response-div" class="d-flex align-items-center card text-center <%= registered === true ? "" : "d-none" %>"
+         style="width: 25rem;">
+        <div class="card-body my-4" style="width: 20rem;">
+                <h5 class="card-title text-dark">Siker!</h5>
+            <p class="card-text text-dark">Sikeresen jelentkeztél!</p>
+        </div>
+    </div>
+</section>
+
+<%- include("footer") %> 

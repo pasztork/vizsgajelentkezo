@@ -1,10 +1,22 @@
-let createRegistrationMW = require('../middleware/student/createRegistrationMW');
+const renderMW = require("../middleware/renderMW");
+
+const getAvailableDatesMW = require("../middleware/student/getAvailableDatesMW");
+const createRegistrationMW = require("../middleware/student/createRegistrationMW");
 
 module.exports = function (app) {
-    let objectRepository = {};
+  const objectRepository = {};
 
-    /* jelentkezés létrehozása */
-    app.post('/student',
-        createRegistrationMW(objectRepository)
-    );
-}
+  /* kirendereli a jelentkezéshez használt oldalt */
+  app.get(
+    "/student",
+    getAvailableDatesMW(objectRepository),
+    renderMW(objectRepository, "student")
+  );
+
+  /* jelentkezés létrehozása */
+  app.post(
+    "/student",
+    createRegistrationMW(objectRepository),
+    renderMW(objectRepository, "student")
+  );
+};

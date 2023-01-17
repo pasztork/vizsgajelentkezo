@@ -1,10 +1,8 @@
-let checkPasswordMW = require('../middleware/auth/checkPasswordMW');
+const checkPasswordMW = require("../middleware/auth/checkPasswordMW");
 
 module.exports = function (app) {
-    let objectRepository = {};
+  let objectRepository = {};
 
-    /* admin bejelentkezés */
-    app.post('/adminlogin/login',
-        checkPasswordMW(objectRepository)
-    );
-}
+  /* admin bejelentkezés */
+  app.post("/adminlogin/login", checkPasswordMW(objectRepository));
+};

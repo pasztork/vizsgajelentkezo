@@ -1,12 +1,15 @@
-require('colors');
-let express = require('express');
-let app = express();
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
 
-require('./routes/login')(app);
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
-app.use(express.static('static'));
+app.set("view engine", "ejs");
+require("./routes/index")(app);
+require("./routes/login")(app);
+require("./routes/admin")(app);
+require("./routes/student")(app);
 
 const portNumber = 3000;
-app.listen(portNumber,
-    () => console.log('Listening on port '.yellow + `${portNumber}`.green)
-);
+app.listen(portNumber, () => console.log(`Listening on port ${portNumber}`));

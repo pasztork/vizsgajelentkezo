@@ -1,0 +1,14 @@
+<%- include("header", { location : "admin" }) %>
+
+<div class="d-flex flex-column align-items-center pt-5">
+    <div id="signup-div" class="d-flex align-items-center card" style="width: 25rem;">
+        <form class="my-4" style="width: 20rem;" method="POST">
+            <input type="text" class="form-control mb-3 col-9" value="Admin" disabled>
+            <label for="password" class="text-dark">Jelszó:</label>
+            <input id="password" name="password" type="password" class="form-control">
+            <a id="signup-btn" href="/admin" class="btn btn-success col-12 mt-3">Bejelentkezés</a>
+        </form>
+    </div>
+</div>
+
+<%- include("footer") %>
