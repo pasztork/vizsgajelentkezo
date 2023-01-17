@@ -7,9 +7,14 @@ const editExamMW = require("../middleware/exam/editExamMW");
 const getStudentRegistrationsMW = require("../middleware/student/getStudentRegistrationsMW");
 const deleteStudentMW = require("../middleware/student/deleteStudentMW");
 const fillDateMW = require("../middleware/exam/fillDateMW");
+const ExamModel = require("../models/exam");
+const StudentModel = require("../models/student");
 
 module.exports = function (app) {
-  const objectRepository = {};
+  const objectRepository = {
+    ExamModel: ExamModel,
+    StudentModel: StudentModel,
+  };
 
   /* lehetőségek mutatása */
   app.get(

@@ -5,8 +5,13 @@ const bodyParser = require("body-parser");
 app.use("/public", express.static("public"));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
+app.use((req, res, next, err) => {
+  res.end("There was a porblem...");
+  console.log(err);
+});
 
 app.set("view engine", "ejs");
+
 require("./routes/index")(app);
 require("./routes/login")(app);
 require("./routes/admin")(app);
