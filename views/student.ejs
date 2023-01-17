@@ -4,7 +4,7 @@
     <div id="signup-div" class="d-flex align-items-center card <% if (typeof registered !== "undefined") { %> d-none <% } %>" style="width: 25rem;">
         <form class="my-4" style="width: 20rem;" method="post" action="/student/new">
             <label for="email" class="text-dark">Email:</label>
-            <input type="email" id="email" name="email" class="form-control mb-3 col-9">
+            <input type="email" id="email" name="email" class="form-control mb-3 col-9" required>
             <label for="date" class="text-dark">Dátum:</label>
             <select class="form-select mb-4 col-12" id="date" name="date">
                 <% if (typeof availableDates !== "undefined") { %> 

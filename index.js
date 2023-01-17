@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
+app.use("/public", express.static("public"));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
