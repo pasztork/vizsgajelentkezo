@@ -28,20 +28,21 @@
 
                     <% emails.forEach(function (email) { %>
                         <div class="col-8 d-flex justify-content-around align-items-center pt-3">
-                            <input type="email" class="col-8 text-center me-2" value="<%= email %>" disabled>
-                            <i class="col-2 btn btn-danger fa-solid fa-trash me-2"></i>
-                            <a href="mailto:<%= email %>" class="col-2 btn btn-success"><i id="email-student-btn"
-                                    class="fa-solid fa-envelope"></i></a>
+                            <input type="email" class="col-8 text-center me-2" value="<%= email %>" readonly>
+                            <button type="submit" formaction="/admin/exam/student/del/<%= email %>" class="col-2 btn btn-danger me-2">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <a href="mailto:<%= email %>" class="col-2 btn btn-success"><i class="fa-solid fa-envelope"></i></a>
                         </div>
                     <% }); %>
 
                     <div class="col-8 d-flex align-items-center pt-3">
                         <label for="max-student-count-update" class="me-3 h6">Max. létszám:</label>
-                        <input id="max-student-count-update" type="number" min="1" max="4"
+                        <input id="max-student-count-update" name="max" type="number" min="1" max="4"
                             value="<%= max %>" class="form-control">
                     </div>
                     <div class="col-12 pt-3 d-flex justify-content-center">
-                        <input formaction="/admin/exam/edit/1" type="submit" value="Mentés"
+                        <input formaction="/admin/exam/edit" type="submit" value="Mentés"
                             class="btn btn-success col-4 me-3">
                         <input formaction="/admin/exam/del" type="submit" value="Alkalom törlése"
                             class="btn btn-danger col-4">

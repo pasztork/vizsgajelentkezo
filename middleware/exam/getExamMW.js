@@ -6,26 +6,29 @@ module.exports = function (objectRepository) {
   const StudentModel = requireOption(objectRepository, "StudentModel");
 
   return function (req, res, next) {
-    ExamModel.findOne({ date: req.query.date }, (err, exam) => {
-      if (err) {
-        return next(err);
-      }
-      if (!exam) {
-        res.locals.emails = undefined;
-        res.locals.date = undefined;
-        return next();
-      }
-      StudentModel.find({ registrations: exam.date }, (err, students) => {
+    ExamModel.findOne(
+      { date: req.query.date || res.locals.date },
+      (err, exam) => {
         if (err) {
           return next(err);
         }
-        if (!students) {
+        if (!exam) {
+          res.locals.emails = undefined;
+          res.locals.date = undefined;
           return next();
         }
-        res.locals.emails = students.map((s) => s.email);
-        res.locals.max = exam.maxStudentCount;
-        return next();
-      });
-    });
+        StudentModel.find({ registrations: exam.date }, (err, students) => {
+          if (err) {
+            return next(err);
+          }
+          if (!students) {
+            return next();
+          }
+          res.locals.emails = students.map((s) => s.email);
+          res.locals.max = exam.maxStudentCount;
+          return next();
+        });
+      }
+    );
   };
 };

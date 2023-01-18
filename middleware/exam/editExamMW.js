@@ -3,8 +3,18 @@ const requireOption = require("../requireOption");
 /* frissíti egy vizsgaalkalom adatait */
 module.exports = function (objectRepository) {
   const ExamModel = requireOption(objectRepository, "ExamModel");
-  const StudentModel = requireOption(objectRepository, "StudentModel");
+
   return function (req, res, next) {
-    return next();
+    ExamModel.updateOne(
+      { date: req.body.date },
+      { $set: { maxStudentCount: req.body.max } },
+      (err) => {
+        if (err) {
+          return next(err);
+        }
+        res.locals.date = req.body.date;
+        return next();
+      }
+    );
   };
 };

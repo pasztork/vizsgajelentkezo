@@ -3,6 +3,7 @@ const renderMW = require("../middleware/renderMW");
 const getExamMW = require("../middleware/exam/getExamMW");
 const createExamMW = require("../middleware/exam/createExamMW");
 const deleteExamMW = require("../middleware/exam/deleteExamMW");
+const deleteStudentFromExamMW = require("../middleware/exam/deleteStudentFromExamMW");
 const editExamMW = require("../middleware/exam/editExamMW");
 const getStudentRegistrationsMW = require("../middleware/student/getStudentRegistrationsMW");
 const deleteStudentMW = require("../middleware/student/deleteStudentMW");
@@ -56,11 +57,23 @@ module.exports = function (app) {
     renderMW(objectRepository, "admin")
   );
 
+  /* kitöröl egy hallgatót egy adott alkalomról */
+  app.post(
+    "/admin/exam/student/del/:email",
+    authMW(objectRepository),
+    deleteStudentFromExamMW(objectRepository),
+    fillDateMW(objectRepository),
+    getExamMW(objectRepository),
+    renderMW(objectRepository, "admin")
+  );
+
   /* szerkeszt egy vizsgaalkalmat */
   app.post(
-    "/admin/exam/edit/:examid",
+    "/admin/exam/edit",
     authMW(objectRepository),
     editExamMW(objectRepository),
+    fillDateMW(objectRepository),
+    getExamMW(objectRepository),
     renderMW(objectRepository, "admin")
   );
 
