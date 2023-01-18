@@ -2,11 +2,13 @@
  * akkor átírányít /admin-ra */
 module.exports = function (objectRepository) {
   return function (req, res, next) {
-    if (req.body.password === "alma123") {
-      res.redirect("/admin");
-    } else {
-      res.redirect("/adminlogin");
+    if (
+      typeof req.body.password === "undefined" ||
+      req.body.password !== "alma123"
+    ) {
+      return res.redirect("/adminlogin");
     }
-    return next();
+    req.session.loggedIn = true;
+    return res.redirect("/admin");
   };
 };

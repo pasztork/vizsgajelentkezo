@@ -1,24 +1,21 @@
-/* összegyűjti azokat a dátumokat, amikre még van szabad hely */
 const requireOption = require("../requireOption");
 
+/* összegyűjti azokat a dátumokat, amikre még van szabad hely */
 module.exports = function (objectRepository) {
   const ExamModel = requireOption(objectRepository, "ExamModel");
-  const StudentModel = requireOption(objectRepository, "StudentModel");
 
   return function (req, res, next) {
     res.locals.availableDates = ExamModel.find(
       {
-        date: { $gt: new Date().toISOString().slice(0, 10) },
+        date: { $gt: new Date() },
       },
       (error, exams) => {
-        console.log(exams);
         if (error) {
           return next(error);
         }
-        exams.filter((exam) => {
+        exams = exams.filter((exam) => {
           return (
-            !!exam.students &&
-            exam.students.length < exam.students.maxStudentCount
+            !!exam._students && exam._students.length < exam.maxStudentCount
           );
         });
         res.locals.availableDates = exams.map((e) =>

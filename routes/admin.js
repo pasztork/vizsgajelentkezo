@@ -27,6 +27,7 @@ module.exports = function (app) {
   app.get(
     "/admin/exam",
     authMW(objectRepository),
+    fillDateMW(objectRepository),
     getExamMW(objectRepository),
     renderMW(objectRepository, "admin")
   );
@@ -49,7 +50,7 @@ module.exports = function (app) {
 
   /* töröl egy vizsgaalkalmat */
   app.post(
-    "/admin/exam/del/:examid",
+    "/admin/exam/del",
     authMW(objectRepository),
     deleteExamMW(objectRepository),
     renderMW(objectRepository, "admin")
@@ -63,19 +64,19 @@ module.exports = function (app) {
     renderMW(objectRepository, "admin")
   );
 
-  /* hallgató jelentekéseinek lekérése az adatbázisból */
-  app.get(
-    "/admin/student/:studentid",
+  /* hallgató törlése az adatbázisból */
+  app.post(
+    "/admin/student/del",
     authMW(objectRepository),
-    getStudentRegistrationsMW(objectRepository),
+    deleteStudentMW(objectRepository),
     renderMW(objectRepository, "admin")
   );
 
-  /* hallgató törlése az adatbázisból */
+  /* hallgató jelentekéseinek lekérése az adatbázisból */
   app.post(
-    "/admin/student/del/:studentid",
+    "/admin/student",
     authMW(objectRepository),
-    deleteStudentMW(objectRepository),
+    getStudentRegistrationsMW(objectRepository),
     renderMW(objectRepository, "admin")
   );
 };

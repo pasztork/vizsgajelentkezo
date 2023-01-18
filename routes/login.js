@@ -11,11 +11,7 @@ module.exports = function (app) {
   };
 
   /* bejelentkező oldalt rendereli ki */
-  app.get(
-    "/adminlogin",
-    authMW(objectRepository),
-    renderMW(objectRepository, "adminlogin")
-  );
+  app.get("/adminlogin", renderMW(objectRepository, "adminlogin"));
 
   /* admin bejelentkezés */
   app.post("/adminlogin/login", checkPasswordMW(objectRepository));
