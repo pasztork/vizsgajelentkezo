@@ -1,8 +1,8 @@
 <%- include("header", { location : "admin" }) %>
 
 <div class="d-flex flex-column align-items-center pt-5">
-    <div class="d-flex align-items-center card" style="width: 25rem;">
-        <form class="my-4" style="width: 20rem;" method="post" action="/adminlogin/login">
+    <div class="d-flex align-items-center card col-10 col-lg-2">
+        <form class="my-4 col-10" method="post" action="/adminlogin/login">
             <input type="text" class="form-control mb-3 col-9" value="Admin" disabled>
             <label for="password" class="text-dark">Jelszó:</label>
             <input id="password" name="password" type="password" class="form-control" required>

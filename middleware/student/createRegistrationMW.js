@@ -24,21 +24,27 @@ module.exports = function (objectRepository) {
       if (student.registrations.includes(req.body.date)) {
         return next();
       }
-      student.registrations.push(req.body.date);
-      student.save((err) => {
-        if (err) {
+      ExamModel.findOne({ date: req.body.date }, (err, exam) => {
+        if (exam._students.length === exam.maxStudentCount) {
           res.locals.registered = false;
+          return next();
         }
-        ExamModel.updateOne(
-          { date: req.body.date },
-          { $push: { _students: student._id } },
-          (err) => {
-            if (err) {
-              return next(err);
-            }
-            return next();
+        student.registrations.push(req.body.date);
+        student.save((err) => {
+          if (err) {
+            res.locals.registered = false;
           }
-        );
+          ExamModel.updateOne(
+            { date: req.body.date },
+            { $push: { _students: student._id } },
+            (err) => {
+              if (err) {
+                return next(err);
+              }
+              return next();
+            }
+          );
+        });
       });
     });
   };
