@@ -24,6 +24,7 @@ module.exports = function (objectRepository) {
           if (!students) {
             return next();
           }
+          res.locals.students = students;
           res.locals.emails = students.map((s) => s.email);
           res.locals.max = exam.maxStudentCount;
           return next();

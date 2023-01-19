@@ -1,5 +1,6 @@
 const authMW = require("../middleware/auth/authMW");
 const checkPasswordMW = require("../middleware/auth/checkPasswordMW");
+const logoutMW = require("../middleware/auth/logoutMW");
 const renderMW = require("../middleware/renderMW");
 const ExamModel = require("../models/exam");
 const StudentModel = require("../models/student");
@@ -15,4 +16,12 @@ module.exports = function (app) {
 
   /* admin bejelentkezés */
   app.post("/adminlogin/login", checkPasswordMW(objectRepository));
+
+  /* kilépteti az admin felhasználót és visszairányítja a bejelentkezés oldalra */
+  app.get(
+    "/admin/logout",
+    authMW(objectRepository),
+    logoutMW(objectRepository),
+    renderMW(objectRepository, "adminlogin")
+  );
 };

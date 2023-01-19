@@ -14,6 +14,7 @@ module.exports = function (objectRepository) {
         return next();
       }
       res.locals.student = {
+        name: student.name,
         email: student.email,
         registrations: student.registrations.map((r) =>
           r.toISOString().slice(0, 10)

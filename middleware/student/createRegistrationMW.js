@@ -16,6 +16,7 @@ module.exports = function (objectRepository) {
       }
       if (!student) {
         student = new StudentModel({
+          name: req.body.name,
           email: req.body.email,
           registrations: [],
         });

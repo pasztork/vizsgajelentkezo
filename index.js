@@ -20,7 +20,7 @@ app.use(
 
 /* routing betöltése */
 require("./routes/index")(app);
-require("./routes/login")(app);
+require("./routes/auth")(app);
 require("./routes/admin")(app);
 require("./routes/student")(app);
 
