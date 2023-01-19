@@ -10,7 +10,7 @@
                             <input type="date" id="date" name="date" class="form-control" required>
                             <div class="col-12 d-flex justify-content-center pt-3">
                                 <input type="submit" formaction="/admin/exam" class="btn btn-success col-6 me-3"
-                                    value="E-mailek listázása">
+                                    value="Emailek listázása">
                                 <input type="submit" formaction="/admin/exam/new" class="btn btn-success col-6"
                                     value="Dátum felvétele">
                             </div>
@@ -73,8 +73,8 @@
                 <div class="d-flex-wrap col-lg-6 col-12">
                     <div class="col-12 d-flex justify-content-center align-items-center">
                         <form class="col-8" method="post" action="/admin/student">
-                            <label for="email" class="h4">Email:</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
+                            <label for="searchKey" class="h4">Email vagy név:</label>
+                            <input type="text" id="searchKey" name="searchKey" class="form-control" required>
                             <div class="d-flex justify-content-center pt-3">
                                 <input type="submit" class="btn btn-success col-12" value="Hallgató megjelenítése">
                             </div>
@@ -82,30 +82,31 @@
                     </div>
                 </div>
 
-                <% if (typeof student !=="undefined" ) { %>
-                    <div id="student" class="col-lg-6 col-12 d-flex-wrap pt-3">
+                <% if (typeof students !=="undefined" && typeof date === "undefined") { %>
+                <% students.forEach(s => { %>
+                <div class="col-lg-6 col-12 d-flex-wrap pt-3">
+                    
+                    <div class="col-12 d-flex justify-content-center align-items-center">
+                        <form method="post" class="col-8 d-flex justify-content-center">
+                            <input type="text" name="name" class="col-4 text-center me-1" value="<%= s.name %>" readonly>
+                            <input type="email" name="email" class="col-4 text-center me-1" value=<%= s.email %> readonly>
+                            <button type="submit" formaction="/admin/student/del" class="col-2 btn btn-danger me-2">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <a href="mailto:<%= s.email %>" class="col-2 btn btn-success"><i class="fa-solid fa-envelope"></i></a>
+                        </form>
+                    </div>
 
-                        <div class="col-12 d-flex justify-content-center align-items-center">
-                            <form method="post" class="col-8 d-flex justify-content-center">
-                                <input type="text" name="name" class="col-4 text-center me-1" value="<%= student.name %>" readonly>
-                                <input type="email" name="email" class="col-4 text-center me-1" value=<%= student.email %> readonly>
-                                <button type="submit" formaction="/admin/student/del" class="col-2 btn btn-danger me-2">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                <a href="mailto:<%= student.email %>" class="col-2 btn btn-success"><i class="fa-solid fa-envelope"></i></a>
-                            </form>
-                        </div>
-
-                        <div class="col-12 d-flex justify-content-center align-items-center">
-                            <div class="col-8 d-flex-wrap align-items-center justify-content-center">
-                                <% student.registrations.forEach(function (registration) {%>
-                                    <input type="date" value="<%= registration %>" class="form-control col-12 mt-3"
-                                        disabled>
-                                    <% }); %>
-                            </div>
+                    <div class="col-12 d-flex justify-content-center align-items-center">
+                        <div class="col-8 d-flex-wrap align-items-center justify-content-center">
+                            <% s.registrations.forEach(function (registration) {%>
+                            <input type="date" value="<%= registration %>" class="form-control col-12 mt-3" disabled>
+                            <% }); %>
                         </div>
                     </div>
-                    <% } %>
+                </div>
+                <% }); %>
+                <% } %>
             </div>
         </div>
         <a href="/admin/logout" class="col-4 btn btn-danger mt-5">Kijelentkezés</a>
