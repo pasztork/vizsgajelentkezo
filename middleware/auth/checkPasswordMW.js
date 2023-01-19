@@ -6,7 +6,8 @@ module.exports = function (objectRepository) {
       typeof req.body.password === "undefined" ||
       req.body.password !== "alma123"
     ) {
-      return res.redirect("/adminlogin");
+      res.locals.badPass = true;
+      return next();
     }
     req.session.loggedIn = true;
     return res.redirect("/admin");

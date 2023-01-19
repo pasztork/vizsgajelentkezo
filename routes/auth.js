@@ -15,7 +15,11 @@ module.exports = function (app) {
   app.get("/adminlogin", renderMW(objectRepository, "adminlogin"));
 
   /* admin bejelentkezés */
-  app.post("/adminlogin/login", checkPasswordMW(objectRepository));
+  app.post(
+    "/adminlogin/login",
+    checkPasswordMW(objectRepository),
+    renderMW(objectRepository, "adminlogin")
+  );
 
   /* kilépteti az admin felhasználót és visszairányítja a bejelentkezés oldalra */
   app.get(
