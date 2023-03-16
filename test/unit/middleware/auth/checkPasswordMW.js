@@ -24,14 +24,14 @@ describe("checkPasswordMW ", () => {
     });
   });
 
-  it("should redirect to /admin if the user logged in successfully", (done) => {
+  it("should redirect to /admindate if the user logged in successfully", (done) => {
     const reqMock = {
       body: { password: "kiskutya" },
       session: {},
     };
     const resMock = {
       redirect: (where) => {
-        expect(where).to.be.eql("/admin");
+        expect(where).to.be.eql("/admindate");
         expect(reqMock.session.loggedIn).to.be.true;
         done();
       },
