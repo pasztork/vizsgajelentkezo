@@ -12,6 +12,6 @@ module.exports = function (objectRepository) {
       return next();
     }
     req.session.loggedIn = true;
-    return res.redirect("/admin");
+    return res.redirect("/admindate");
   };
 };

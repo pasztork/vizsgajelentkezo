@@ -17,11 +17,18 @@ module.exports = function (app) {
     StudentModel: StudentModel,
   };
 
-  /* lehetőségek mutatása */
+  /* vizsgaalkalommal kapcsolatos lehetőségek listázása */
   app.get(
-    "/admin",
+    "/admindate",
     authMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "admindate")
+  );
+
+  /* vizsgaalkalommal kapcsolatos lehetőségek listázása */
+  app.get(
+    "/adminstudents",
+    authMW(objectRepository),
+    renderMW(objectRepository, "adminstudents")
   );
 
   /* egy vizsgaalkalomhoz tartozó emailek listázása */
@@ -30,7 +37,7 @@ module.exports = function (app) {
     authMW(objectRepository),
     fillDateMW(objectRepository),
     getExamMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "admindate")
   );
 
   /* egy új vizsgalkalom létrehozásához szükséges UI kitöltése */
@@ -38,7 +45,7 @@ module.exports = function (app) {
     "/admin/exam/new",
     authMW(objectRepository),
     fillDateMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "admindate")
   );
 
   /* vizsgaalkalom létrehozása */
@@ -46,7 +53,7 @@ module.exports = function (app) {
     "/admin/exam/new",
     authMW(objectRepository),
     createExamMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "admindate")
   );
 
   /* töröl egy vizsgaalkalmat */
@@ -54,7 +61,7 @@ module.exports = function (app) {
     "/admin/exam/del",
     authMW(objectRepository),
     deleteExamMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "admindate")
   );
 
   /* kitöröl egy hallgatót egy adott alkalomról */
@@ -64,7 +71,7 @@ module.exports = function (app) {
     deleteStudentFromExamMW(objectRepository),
     fillDateMW(objectRepository),
     getExamMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "admindate")
   );
 
   /* szerkeszt egy vizsgaalkalmat */
@@ -74,7 +81,7 @@ module.exports = function (app) {
     editExamMW(objectRepository),
     fillDateMW(objectRepository),
     getExamMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "admindate")
   );
 
   /* hallgató törlése az adatbázisból */
@@ -82,7 +89,7 @@ module.exports = function (app) {
     "/admin/student/del",
     authMW(objectRepository),
     deleteStudentMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "adminstudents")
   );
 
   /* hallgató jelentekéseinek lekérése az adatbázisból */
@@ -90,6 +97,6 @@ module.exports = function (app) {
     "/admin/student",
     authMW(objectRepository),
     getStudentRegistrationsMW(objectRepository),
-    renderMW(objectRepository, "admin")
+    renderMW(objectRepository, "adminstudents")
   );
 };
